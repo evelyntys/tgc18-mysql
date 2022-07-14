@@ -1,4 +1,4 @@
-# Data definition language
+# ddl: Data definition language - crud of tables
 $ need to have ; behind
 
 # start mysql
@@ -52,6 +52,7 @@ update employees set email='asd@gmail.com' where employee_id = 1;
 # delete one row
 delete from employees where employee_id = 1;
 
+-- primary keys compulsory from the start - no need not null
 create table departments (
     department_id int unsigned auto_increment primary key,
     name varchar(100)
@@ -108,12 +109,16 @@ create table employees (
 ) engine = innodb;
 
 
+
+-- swimming pool
 create table parents(
     parent_id int unsigned auto_increment primary key,
     name varchar(100) not null,
     contact_no varchar(10) not null,
     occupation varchar(100)
 ) engine = innodb;
+-- engine = innodb is so that foreign keys will work, if not fk check will not work
+-- not null- compulsory
 
 create table locations(
     location_id int unsigned auto_increment primary key,
@@ -160,6 +165,11 @@ select * from parents;
 insert into parents(
     name, contact_no, occupation
 ) values ('john doe', '98765432', 'salesman');
+
+-- insert multiple parents (multiple rows)
+insert into parents (name, contact_no, occupation)values
+('mary sue', '111111', 'doctor'),
+('tan ah kow', '222222', 'programmer');
 
 alter table addresses add parent_id int unsigned not null;
 
@@ -230,3 +240,5 @@ foreign key(student_id) references students(student_id);
 insert into payments(
     parent_id, session_id, student_id, payment_mode, amount
 ) values(1, 1, 1, 'paynow', 150.10);
+
+

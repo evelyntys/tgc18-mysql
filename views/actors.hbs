@@ -1,0 +1,64 @@
+{{#extends 'base'}}
+{{#block 'content'}}
+<table class='table'>
+    <thead>
+        <tr>
+            <th>actor id</th>
+            <th>first name</th>
+            <th>last name</th>
+            <th>update</th>
+        </tr>
+    </thead>
+    {{#each actors}}
+    <tr>
+        <td>{{this.actor_id}}</td>
+        <td>{{this.first_name}}</td>
+        <td>{{this.last_name}}</td>
+        <td>
+            <a class="btn btn-primary" href="/actors/{{this.actor_id}}/update">
+                Update
+            </a>
+
+            <a href="#" data-actor-id="{{this.actor_id}}" data-actor-name="{{this.first_name}} {{this.last_name}}" 
+            class="delete-btn btn btn-danger">delete</a>
+            {{!-- <a href=`/actors/{{this.actor_id}}/update` class="btn btn-primary">update</a> --}}
+        </td>
+    </tr>
+    {{/each}}
+</table>
+{{/block}}
+
+{{#block 'js'}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+   let deleteBtns = document.querySelectorAll('.delete-btn');
+   for (let each of deleteBtns){
+    each.addEventListener('click', async function(evt){
+        evt.preventDefault() //=> tells browser to suppress the default behaviour of the element
+        console.log(evt.target.dataset)
+        //swal is the sweetalert2 object
+        const result = await Swal.fire({
+            'title': `confirm delete ${evt.target.dataset.actorName}`,
+            'icon': 'error',
+            'confirmButtonText': 'yes delete',
+            'cancelButtonText': 'no cancel',
+            'showCloseButton': true,
+            'showCancelButton': true
+            // the next line in the function will only execute after the user has clicked one of the button
+        })
+
+        if (result.isConfirmed){
+            //process the delete
+            const form = document.createElement('form');
+            form.method = "POST"; // <form method="POST"> ... </form>
+            form.action = "/actors/" + evt.target.dataset.actorId + "/delete"
+            document.querySelector('body').appendChild(form);
+            form.submit(); //submit the form with a function cancel
+            //goes to post route after submission
+        }
+    })
+   }
+</script>
+{{/block}}
+
+{{/extends}}

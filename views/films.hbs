@@ -1,0 +1,26 @@
+{{#extends 'base'}}
+{{#block 'content'}}
+<table class="table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>description</th>
+            <th>language</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each films}}
+        <tr>
+            <td>{{this.film_id}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.description}}</td>
+            <td>{{this.language}}</td>
+            <td><a href="/films/{{this.film_id}}/update" class="btn btn-primary">update</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{/block}}
+{{/extends}}

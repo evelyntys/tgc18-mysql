@@ -1,0 +1,30 @@
+{{#extends 'base'}}
+{{#block 'content'}}
+<div class="container">
+    <h1>createa a new listing</h1>
+    <form method="POST">
+        <div>
+            <label>title: </label>
+            <input type="text" name="title" class="form-control" />
+        </div>
+
+        <div>
+            <label>description</label>
+            <textarea name="description" class="form-control"></textarea>
+        </div>
+
+        <div>
+            <label>language: </label>
+            <select name="language_id" class="form-control">
+                {{#each languages}}
+                <option value="{{this.language_id}}">
+                    {{this.name}}
+                </option>
+                {{/each}}
+            </select>
+        </div>
+        <input type="submit" value="submit" class="btn btn-primary mt-2" />
+    </form>
+</div>
+{{/block}}
+{{/extends}}

@@ -1,0 +1,65 @@
+{{#extends 'base'}}
+{{#block 'content'}}
+<div>
+<h1>categories</h1>
+<a href="/categories/create" class="btn btn-primary">create</a>
+</div>
+<form method="GET">
+    <div>
+    <label>search category name: </label>
+    <input type="text" name="name"/>
+    <input type="submit" value="search" class="btn btn-primary"/>
+    </div>
+</form>
+<table class="table">
+    <tr>
+        <th>category id</th>
+        <th>category name</th>
+        <th>update</th>
+        <th>delete</th>
+    </tr>
+
+{{#each category}}
+    <tr>
+        <td>{{this.category_id}}</td>
+        <td>{{this.name}}</td>
+        <td><a href="/categories/update/{{this.category_id}}" class="btn btn-warning">update</a></td>
+        <td><a href="/categories/delete/{{this.category_id}}" data-category-id="{{this.category_id}}" data-category-name="{{this.name}}" class="btn btn-danger delete-btn">delete</a></td>
+    </tr>
+    {{/each}}
+</table>
+{{/block}}
+
+{{!-- {{#block 'js'}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+   let deleteBtns = document.querySelectorAll('.delete-btn');
+   for (let each of deleteBtns){
+    each.addEventListener('click', async function(evt){
+        evt.preventDefault() //=> tells browser to suppress the default behaviour of the element
+        console.log(evt.target.dataset)
+        //swal is the sweetalert2 object
+        const result = await Swal.fire({
+            'title': `confirm delete ${evt.target.dataset.categoryName}`,
+            'icon': 'error',
+            'confirmButtonText': 'yes delete',
+            'cancelButtonText': 'no cancel',
+            'showCloseButton': true,
+            'showCancelButton': true
+            // the next line in the function will only execute after the user has clicked one of the button
+        })
+
+        if (result.isConfirmed){
+            //process the delete
+            const form = document.createElement('form');
+            form.method = "POST"; // <form method="POST"> ... </form>
+            form.action = "/categories/delete/" + evt.target.dataset.categoryId
+            document.querySelector('body').appendChild(form);
+            form.submit(); //submit the form with a function cancel
+            //goes to post route after submission
+        }
+    })
+   }
+</script>
+{{/block}} --}}
+{{/extends}}

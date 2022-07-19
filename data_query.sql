@@ -116,3 +116,42 @@ select checkNumber from payments where year(paymentDate) = 2003;
 
 -- display the month, year, and day for each payment made
 select checkNumber, year(paymentDate), month(paymentDate), day(paymentDate) from payments
+
+
+SUBQUERY
+-- show the product code of the product that has been ordered the most times
+SELECT productCode
+FROM 
+    (SELECT productName,
+         orderdetails.productCode,
+         count(*) AS "times_ordered"
+    FROM orderdetails
+    JOIN products
+        ON products.productCode = orderdetails.productCode
+    GROUP BY  productName, orderdetails.productCode
+    ORDER BY  "times_ordered" DESC limit 1) AS sub;
+ 
+ -- when the select only returns one value, it will be treated as a primitive
+SELECT *
+FROM customers
+WHERE creditLimit > 
+    (SELECT avg(creditLimit)
+    FROM customers)
+
+-- when the select returns a singular column of rows, then it is an array
+-- selecting products that have not been sold
+-- IN AND NOT IN -> similar to mongodb's $in query
+SELECT *
+FROM products
+WHERE productCode NOT IN 
+    (SELECT distinct(productCode)
+    FROM orderdetails)
+
+-- for each sales rep, how much money did they make for the company? 
+
+-- show all sales rep who made more than 10% of the payment amount 
+select employeeNumber, firstName, lastName sum(amount) from employees join customers
+on employees.employeeNumber = customers.salesRepEmployeeNumber
+join payments on customers.customerNumber = payments.customerNumber
+group by employees.employeeNumber 
+having sum(amount) > (select sum(amount) * 0.1 from payments)

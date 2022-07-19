@@ -1,0 +1,11 @@
+{{#extends 'base'}}
+{{#block 'content'}}
+<div class="container">
+<form method="POST">
+    <div class="alert alert-danger">are you sure you want to delete the category {{category.name}}?</div>
+    <input type="submit" class="btn btn-danger" value="confirm"/>
+    <a href="/categories" class="btn btn-secondary">cancel</a>
+</form>
+</div>
+{{/block}}
+{{/extends}}

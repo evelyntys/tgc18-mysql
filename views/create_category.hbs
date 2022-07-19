@@ -1,0 +1,14 @@
+{{#extends 'base'}}
+{{#block 'content'}}
+<div className="container">
+    <h1>create new category</h1>
+<form method="POST">
+    <div>
+        <label>category name: </label>
+        <input type="text" class="form-control" name="name"/>
+    </div>
+    <input type="submit" class="btn btn-primary mt-2" value="submit"/>
+</form>
+</div>
+{{/block}}
+{{/extends}}

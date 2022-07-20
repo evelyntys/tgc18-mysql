@@ -1,0 +1,63 @@
+{{#extends 'base'}}
+{{#block 'content'}}
+<div class="container">
+    <h1>create new customer</h1>
+    <form method="POST">
+        <div>
+            <label>first name:</label>
+            <input type="text" class="form-control" name="first_name" />
+        </div>
+
+        <div>
+            <label>last name:</label>
+            <input type="text" class="form-control" name="last_name" />
+        </div>
+
+        <div>
+            <label>email:</label>
+            <input type="email" class="form-control" name="email" />
+        </div>
+
+        <div>
+            <label>store: </label>
+            <select name="store_id" class="form-control">
+                {{#each stores}}
+                <option value="{{this.store_id}}">{{this.address}} {{this.address2}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div>
+            <label>address: </label>
+            <input type="text" class="form-control" name="address" />
+            {{!-- <select name="address_id" class="form-control">
+                {{#each address}}
+                <option value="{{this.address_id}}">{{this.address}} {{this.address2}}</option>
+                {{/each}}
+            </select> --}}
+        </div>
+
+        <div>
+            <label>district: </label>
+            <input type="text" class="form-control" name="district" />
+        </div>
+
+        <div>
+            <label>phone: </label>
+            <input type="text" class="form-control" name="phone" />
+        </div>
+
+        <div>
+            <label>city</label>
+            <select class="form-control" name="city_id">
+                {{#each cities}}
+                <option value="{{this.city_id}}">{{this.city}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <input type="submit" value="submit" class="btn btn-primary mt-2" />
+    </form>
+</div>
+{{/block}}
+{{/extends}}

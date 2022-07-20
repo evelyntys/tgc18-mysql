@@ -1,0 +1,32 @@
+{{#extends 'base'}}
+{{#block 'content'}}
+<div class="container">
+<table class="table">
+    <thead>
+        <tr>
+        <th>customer id</th>
+        <th>name</th>
+        <th>email</th>
+        <th>store id</th>
+        <th>manager id</th>
+        <th>address id</th>
+        <th>address</th>
+        </tr>
+    </thead>
+
+{{#each customers}}
+    <tr>
+        <td>{{this.customer_id}}</td>
+        <td>{{this.first_name}} {{this.last_name}}</td>
+        <td>{{this.email}}</td>
+        <td>{{this.store_id}}</td>
+        <td>{{this.manager_staff_id}}</td>
+        <td>{{this.address_id}}</td>
+        <td>{{this.address}} {{this.address2}} {{this.distrct}} {{this.postal_code}}</td>
+
+    </tr>
+    {{/each}}
+</table>
+</div>
+{{/block}}
+{{/extends}}

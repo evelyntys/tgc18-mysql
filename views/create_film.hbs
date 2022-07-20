@@ -1,7 +1,10 @@
 {{#extends 'base'}}
+{{#block 'style'}}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{{/block}}
 {{#block 'content'}}
 <div class="container">
-    <h1>createa a new listing</h1>
+    <h1>create a new listing</h1>
     <form method="POST">
         <div>
             <label>title: </label>
@@ -23,8 +26,33 @@
                 {{/each}}
             </select>
         </div>
+        <div>
+            <label>Actors</label>
+            <select name="actors" class="form-control" id="actors" multiple>
+                {{#each actors}}
+                <option value="{{this.actor_id}}">
+                    {{this.first_name}} {{this.last_name}}
+                </option>
+                {{/each}}
+            </select>
+        </div>
         <input type="submit" value="submit" class="btn btn-primary mt-2" />
     </form>
 </div>
+{{/block}}
+
+{{#block 'js'}}
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    //jquery instructions begin with a $ -- $() is usually referred to as a jquery function
+    //.ready -- will ensure that all the elements have been created (similar to window.addEventListener('DOMContentLoaded'))
+    //alternative: choices-js (https://github.com/Choices-js/Choices)
+    $(document).ready(function(){
+        //document.querySelector('#actors');
+        $('#actors').select2(); //add the select2 control to select #actors
+    })
+</script>
 {{/block}}
 {{/extends}}
